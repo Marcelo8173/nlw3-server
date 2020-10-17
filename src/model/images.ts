@@ -1,21 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne,JoinColumn } from 'typeorm';
+import Orphanage from './orphanates';
 
-@Entity('orphanages')
-export default class Orphanages{
+@Entity('images')
+export default class Images{
     @PrimaryGeneratedColumn('increment')
     id: number;
     @Column()
-    name: string;
-    @Column()
-    latitude: number;
-    @Column()
-    longitude: number;
-    @Column()
-    about: string;
-    @Column()
-    instuctions: string;
-    @Column()
-    open_hours: string;
-    @Column()
-    open_on_weekends: boolean;  
+    path: string;
+    @ManyToOne(() => Orphanage, orphanage => orphanage.images)
+    @JoinColumn({name: 'orphanages_id'})
+    orphanage: Orphanage
 }
